@@ -10,6 +10,7 @@ public class Product {
     private String imageUrl;
  
     // Default Constructor
+    //page object model
     public Product() {
     }
  
