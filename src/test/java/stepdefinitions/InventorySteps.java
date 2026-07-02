@@ -17,6 +17,7 @@ import utils.ConfigReader;
 import utils.DriverFactory;
 import utils.ExcelReader;
 import utils.ExcelWriter;
+import utils.ScreenshotUtil;
  
 public class InventorySteps {
  
@@ -24,23 +25,16 @@ public class InventorySteps {
     private InventoryPage inventoryPage;
     private List<Product> products;
  
-    public InventorySteps() {
- 
-        loginPage = new LoginPage(DriverFactory.getDriver());
-        inventoryPage = new InventoryPage(DriverFactory.getDriver());
- 
-    }
- 
-    @Given("User logs in using test case {string}")
+    @Given("User is logged into SauceDemo using {string}")
     public void user_logs_in_using_test_case(String testCaseId) {
  
-        DriverFactory.getDriver().get(
-                ConfigReader.getProperty("url"));
+        loginPage =new LoginPage(DriverFactory.getDriver());
  
-        Map<String, String> loginData =
-                ExcelReader.getTestData(
-                        ConfigReader.getProperty("loginSheet"),
-                        testCaseId);
+        inventoryPage =new InventoryPage(DriverFactory.getDriver());
+ 
+        DriverFactory.getDriver().get(ConfigReader.getProperty("url"));
+ 
+        Map<String, String> loginData = ExcelReader.getTestData(ConfigReader.getProperty("loginSheet"), testCaseId);
  
         loginPage.enterUsername(
                 loginData.get("Username"));
@@ -62,7 +56,8 @@ public class InventorySteps {
     }
  
     @Then("Inventory title should be {string}")
-    public void inventory_title_should_be(String expectedTitle) {
+    public void inventory_title_should_be(
+            String expectedTitle) {
  
         assertEquals(
                 inventoryPage.getInventoryTitle(),
@@ -97,52 +92,56 @@ public class InventorySteps {
     public void product_details_should_be_written_into_inventory_excel_sheet() {
  
         ExcelWriter.writeInventoryProducts(products);
+        ScreenshotUtil.captureScreenshot("Inventory", "Inventory_Page");
  
     }
  
     @When("User sorts products by {string}")
     public void user_sorts_products_by(String sortOption) {
  
-        products =
-                inventoryPage.getSortedProducts(sortOption);
+        products = inventoryPage.getSortedProducts(sortOption);
  
     }
-
- 
- 
  
     @Then("Sorted products should be written under {string}")
-    public void sorted_products_should_be_written_under(String sortType) {
+    public void sorted_products_should_be_written_under(
+            String sortType) {
  
         switch (sortType.toUpperCase()) {
  
             case "A-Z":
  
                 ExcelWriter.writeSortingResult(products, 4);
+                ScreenshotUtil.captureScreenshot("Inventory", "Sort_Name_AZ");
                 break;
  
             case "Z-A":
  
                 ExcelWriter.writeSortingResult(products, 5);
+                ScreenshotUtil.captureScreenshot("Inventory", "Sort_Name_ZA");
                 break;
  
             case "LOW-HIGH":
  
                 ExcelWriter.writeSortingResult(products, 6);
+                ScreenshotUtil.captureScreenshot("Inventory", "Sort_Name_Low_High");
                 break;
  
             case "HIGH-LOW":
  
                 ExcelWriter.writeSortingResult(products, 7);
+                ScreenshotUtil.captureScreenshot("Inventory", "Sort_Name_High_Low");
                 break;
  
             default:
  
                 throw new IllegalArgumentException(
-                        "Invalid Sort Type : " + sortType);
+                        "Invalid Sort Type : "
+                                + sortType);
  
         }
  
     }
  
 }
+ 
