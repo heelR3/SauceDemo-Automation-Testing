@@ -353,5 +353,148 @@ public class ExcelWriter {
 	    }
 	
 	}
+	/*
 
+	 * ====== Checkout Method =====
+
+	 */
+ 
+	public static void createCheckoutHeader() {
+ 
+		try {
+ 
+			XSSFWorkbook workbook = openWorkbook();
+ 
+			Sheet sheet = workbook.getSheet("Checkout");
+ 
+			if (sheet == null) {
+ 
+				sheet = workbook.createSheet("Checkout");
+ 
+			}
+ 
+			if (sheet.getRow(0) == null) {
+ 
+				Row header = sheet.createRow(0);
+ 
+				header.createCell(0).setCellValue("Test Case ID");
+
+				header.createCell(1).setCellValue("First Name");
+
+				header.createCell(2).setCellValue("Last Name");
+
+				header.createCell(3).setCellValue("Postal Code");
+
+				header.createCell(4).setCellValue("Result");
+
+				header.createCell(5).setCellValue("Error Message");
+
+				header.createCell(6).setCellValue("Execution Time");
+
+				header.createCell(7).setCellValue("Browser");
+ 
+			}
+ 
+			saveWorkbook(workbook);
+ 
+		}
+ 
+		catch (Exception e) {
+ 
+			throw new RuntimeException("Unable to create Checkout Header.", e);
+ 
+		}
+ 
+	}
+ 
+	public static void clearCheckoutSheet() {
+ 
+		try {
+ 
+			XSSFWorkbook workbook = openWorkbook();
+ 
+			Sheet sheet = workbook.getSheet("Checkout");
+ 
+			if (sheet == null) {
+ 
+				sheet = workbook.createSheet("Checkout");
+ 
+			}
+ 
+			int lastRow = sheet.getLastRowNum();
+ 
+			for (int i = lastRow; i >= 1; i--) {
+ 
+				Row row = sheet.getRow(i);
+ 
+				if (row != null) {
+ 
+					sheet.removeRow(row);
+ 
+				}
+ 
+			}
+ 
+			saveWorkbook(workbook);
+ 
+		}
+ 
+		catch (Exception e) {
+ 
+			throw new RuntimeException("Unable to clear Checkout Sheet.", e);
+ 
+		}
+ 
+	}
+ 
+	public static void writeCheckoutResult(String testCaseId, String firstName, String lastName, String postalCode,
+
+			String result, String errorMessage) {
+ 
+		try {
+ 
+			XSSFWorkbook workbook = openWorkbook();
+ 
+			Sheet sheet = workbook.getSheet("Checkout");
+ 
+			if (sheet == null) {
+ 
+				sheet = workbook.createSheet("Checkout");
+ 
+			}
+ 
+			int rowNumber = sheet.getLastRowNum() + 1;
+ 
+			Row row = sheet.createRow(rowNumber);
+ 
+			row.createCell(0).setCellValue(testCaseId);
+
+			row.createCell(1).setCellValue(firstName);
+
+			row.createCell(2).setCellValue(lastName);
+
+			row.createCell(3).setCellValue(postalCode);
+
+			row.createCell(4).setCellValue(result);
+
+			row.createCell(5).setCellValue(errorMessage);
+ 
+			row.createCell(6)
+
+					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+ 
+			row.createCell(7).setCellValue(ConfigReader.getProperty("browser"));
+ 
+			saveWorkbook(workbook);
+ 
+		}
+ 
+		catch (Exception e) {
+ 
+			throw new RuntimeException("Unable to write Checkout Result.", e);
+ 
+		}
+ 
+	}
+ 
 }
