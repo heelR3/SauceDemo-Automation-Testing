@@ -216,5 +216,142 @@ public class ExcelWriter {
 		}
 
 	}
+	public static void createCartHeader() {
+		
+	    try {
+	
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("Cart");
+	
+	        if (sheet == null) {
+	
+	            sheet = workbook.createSheet("Cart");
+	
+	        }
+	
+	        if (sheet.getRow(0) == null) {
+	
+	            Row header = sheet.createRow(0);
+	
+	            header.createCell(0).setCellValue("Product Name");
+	            header.createCell(1).setCellValue("Price");
+	            header.createCell(2).setCellValue("Action");
+	            header.createCell(3).setCellValue("Quantity");
+	            header.createCell(4).setCellValue("Execution Time");
+	            header.createCell(5).setCellValue("Browser");
+	
+	        }
+	
+	        saveWorkbook(workbook);
+	
+	    }
+	
+	    catch (Exception e) {
+	
+	        throw new RuntimeException(
+	                "Unable to create Cart Header.",
+	                e);
+	
+	    }
+	
+	}
+	
+	public static void clearCartSheet() {
+	
+	    try {
+	
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("Cart");
+	
+	        if (sheet == null) {
+	
+	            sheet = workbook.createSheet("Cart");
+	
+	        }
+	
+	        int lastRow = sheet.getLastRowNum();
+	
+	        for (int i = lastRow; i >= 1; i--) {
+	
+	            Row row = sheet.getRow(i);
+	
+	            if (row != null) {
+	
+	                sheet.removeRow(row);
+	
+	            }
+	
+	        }
+	
+	        saveWorkbook(workbook);
+	
+	    }
+	
+	    catch (Exception e) {
+	
+	        throw new RuntimeException(
+	                "Unable to clear Cart Sheet.",
+	                e);
+	
+	    }
+	
+	}
+	
+	public static void writeCartAction(Product product,
+	                                   String action) {
+	
+	    try {
+	
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("Cart");
+	
+	        if (sheet == null) {
+	
+	            sheet = workbook.createSheet("Cart");
+	
+	        }
+	
+	        int rowNumber = sheet.getLastRowNum() + 1;
+	
+	        Row row = sheet.createRow(rowNumber);
+	
+	        row.createCell(0)
+	                .setCellValue(product.getName());
+	
+	        row.createCell(1)
+	                .setCellValue(product.getPrice());
+	
+	        row.createCell(2)
+	                .setCellValue(action);
+	
+	        row.createCell(3)
+	                .setCellValue(1);
+	
+	        row.createCell(4)
+	                .setCellValue(
+	                        LocalDateTime.now().format(
+	                                DateTimeFormatter.ofPattern(
+	                                        "dd-MM-yyyy HH:mm:ss")));
+	
+	        row.createCell(5)
+	                .setCellValue(
+	                        ConfigReader.getProperty("browser"));
+	
+	        saveWorkbook(workbook);
+	
+	    }
+	
+	    catch (Exception e) {
+	
+	        throw new RuntimeException(
+	                "Unable to write Cart Action.",
+	                e);
+	
+	    }
+	
+	}
 
 }
