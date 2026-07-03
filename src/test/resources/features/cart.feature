@@ -1,38 +1,39 @@
-Feature: SauceDemo Cart Feature
+@Cart
+Feature: Cart Functionality
  
-@CartFeature
-Scenario: Verify Complete Cart Functionality
+  Scenario: Verify Complete Cart Functionality
  
-Given User logs in using test case "SD_TC_001"
+    Given User is on the SauceDemo login page
+	When User executes login test case "SD_TC_001"
  
-# Add Single Product
-When User adds a single product to the cart
-Then Cart badge count should be "1"
-And Cart details should be written into Cart Excel sheet
-And User captures screenshot "Add_Single_Product"
+    # Add Single Product
+    When User adds a single product to the cart
+    Then Cart badge count should be "1"
  
-# Add Multiple Products
-When User adds 2 more products to the cart
-Then Cart badge count should be "3"
-And Cart details should be written into Cart Excel sheet
-And User captures screenshot "Add_Multiple_Products"
+    When User opens the cart
+    Then Cart page should be displayed
+    And Cart title should be "Your Cart"
+    And Cart should contain 1 products
+    And Cart details should be written into Cart Excel sheet with action "Added"
+    And User captures screenshot "Cart_One_Product"
  
-# Open Cart
-When User opens the cart
-Then Cart page should be displayed
-And Cart title should be "Your Cart"
-And Cart should contain 3 products
-And User captures screenshot "Cart_Page"
+    # Continue Shopping
+    When User clicks Continue Shopping
  
-# Continue Shopping
-When User clicks Continue Shopping
-Then Inventory page should be displayed
-And User captures screenshot "Continue_Shopping"
+    # Add Multiple Products
+    When User adds 2 more products to the cart
+    Then Cart badge count should be "3"
  
-# Remove Product
-When User opens the cart
-And User removes the product
-Then Cart badge count should be "2"
-And Cart details should be written into Cart Excel sheet
-And User captures screenshot "Remove_Product"
+    When User opens the cart
+    Then Cart should contain 3 products
+    And Newly added products should be written into Cart Excel sheet with action "Added"
+    And User captures screenshot "Cart_Three_Products"
  
+    # Remove Product
+    When User removes the first product
+    Then Cart badge count should be "2"
+    And Removed product should be written into Cart Excel sheet with action "Removed"
+    And User captures screenshot "Cart_After_Remove"
+ 
+    # Continue Shopping
+    When User clicks Continue Shopping
