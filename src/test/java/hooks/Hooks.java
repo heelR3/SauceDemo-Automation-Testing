@@ -37,6 +37,16 @@ public class Hooks {
 		}
  
 	}
+	
+	@Before("@Logout")
+	public void beforeLogoutScenario() {
+	 
+	    ExcelWriter.createLogoutHeader();
+	 
+	    ExcelWriter.clearLogoutSheet();
+	 
+	}
+	 
  
 	@After
 	public void afterScenario() {
