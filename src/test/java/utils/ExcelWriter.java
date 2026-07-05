@@ -24,12 +24,11 @@ public class ExcelWriter {
 
 	private static XSSFWorkbook openWorkbook() throws IOException {
 
-	    try (FileInputStream fis =
-	            new FileInputStream(FILE_PATH)) {
+		try (FileInputStream fis = new FileInputStream(FILE_PATH)) {
 
-	        return new XSSFWorkbook(fis);
+			return new XSSFWorkbook(fis);
 
-	    }
+		}
 	}
 
 	private static void saveWorkbook(XSSFWorkbook workbook) throws IOException {
@@ -70,7 +69,7 @@ public class ExcelWriter {
 
 		}
 
-		}
+	}
 
 	public static void writeInventoryProducts(List<Product> products) {
 
@@ -216,167 +215,152 @@ public class ExcelWriter {
 		}
 
 	}
+
 	public static void createCartHeader() {
-		
-	    try {
-	
-	        XSSFWorkbook workbook = openWorkbook();
-	
-	        Sheet sheet = workbook.getSheet("Cart");
-	
-	        if (sheet == null) {
-	
-	            sheet = workbook.createSheet("Cart");
-	
-	        }
-	
-	        if (sheet.getRow(0) == null) {
-	
-	            Row header = sheet.createRow(0);
-	
-	            header.createCell(0).setCellValue("Product Name");
-	            header.createCell(1).setCellValue("Price");
-	            header.createCell(2).setCellValue("Action");
-	            header.createCell(3).setCellValue("Quantity");
-	            header.createCell(4).setCellValue("Execution Time");
-	            header.createCell(5).setCellValue("Browser");
-	
-	        }
-	
-	        saveWorkbook(workbook);
-	
-	    }
-	
-	    catch (Exception e) {
-	
-	        throw new RuntimeException(
-	                "Unable to create Cart Header.",
-	                e);
-	
-	    }
-	
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Cart");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Cart");
+
+			}
+
+			if (sheet.getRow(0) == null) {
+
+				Row header = sheet.createRow(0);
+
+				header.createCell(0).setCellValue("Product Name");
+				header.createCell(1).setCellValue("Price");
+				header.createCell(2).setCellValue("Action");
+				header.createCell(3).setCellValue("Quantity");
+				header.createCell(4).setCellValue("Execution Time");
+				header.createCell(5).setCellValue("Browser");
+
+			}
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to create Cart Header.", e);
+
+		}
+
 	}
-	
+
 	public static void clearCartSheet() {
-	
-	    try {
-	
-	        XSSFWorkbook workbook = openWorkbook();
-	
-	        Sheet sheet = workbook.getSheet("Cart");
-	
-	        if (sheet == null) {
-	
-	            sheet = workbook.createSheet("Cart");
-	
-	        }
-	
-	        int lastRow = sheet.getLastRowNum();
-	
-	        for (int i = lastRow; i >= 1; i--) {
-	
-	            Row row = sheet.getRow(i);
-	
-	            if (row != null) {
-	
-	                sheet.removeRow(row);
-	
-	            }
-	
-	        }
-	
-	        saveWorkbook(workbook);
-	
-	    }
-	
-	    catch (Exception e) {
-	
-	        throw new RuntimeException(
-	                "Unable to clear Cart Sheet.",
-	                e);
-	
-	    }
-	
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Cart");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Cart");
+
+			}
+
+			int lastRow = sheet.getLastRowNum();
+
+			for (int i = lastRow; i >= 1; i--) {
+
+				Row row = sheet.getRow(i);
+
+				if (row != null) {
+
+					sheet.removeRow(row);
+
+				}
+
+			}
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to clear Cart Sheet.", e);
+
+		}
+
 	}
-	
-	public static void writeCartAction(Product product,
-	                                   String action) {
-	
-	    try {
-	
-	        XSSFWorkbook workbook = openWorkbook();
-	
-	        Sheet sheet = workbook.getSheet("Cart");
-	
-	        if (sheet == null) {
-	
-	            sheet = workbook.createSheet("Cart");
-	
-	        }
-	
-	        int rowNumber = sheet.getLastRowNum() + 1;
-	
-	        Row row = sheet.createRow(rowNumber);
-	
-	        row.createCell(0)
-	                .setCellValue(product.getName());
-	
-	        row.createCell(1)
-	                .setCellValue(product.getPrice());
-	
-	        row.createCell(2)
-	                .setCellValue(action);
-	
-	        row.createCell(3)
-	                .setCellValue(1);
-	
-	        row.createCell(4)
-	                .setCellValue(
-	                        LocalDateTime.now().format(
-	                                DateTimeFormatter.ofPattern(
-	                                        "dd-MM-yyyy HH:mm:ss")));
-	
-	        row.createCell(5)
-	                .setCellValue(
-	                        ConfigReader.getProperty("browser"));
-	
-	        saveWorkbook(workbook);
-	
-	    }
-	
-	    catch (Exception e) {
-	
-	        throw new RuntimeException(
-	                "Unable to write Cart Action.",
-	                e);
-	
-	    }
-	
+
+	public static void writeCartAction(Product product, String action) {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Cart");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Cart");
+
+			}
+
+			int rowNumber = sheet.getLastRowNum() + 1;
+
+			Row row = sheet.createRow(rowNumber);
+
+			row.createCell(0).setCellValue(product.getName());
+
+			row.createCell(1).setCellValue(product.getPrice());
+
+			row.createCell(2).setCellValue(action);
+
+			row.createCell(3).setCellValue(1);
+
+			row.createCell(4)
+					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+
+			row.createCell(5).setCellValue(ConfigReader.getProperty("browser"));
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to write Cart Action.", e);
+
+		}
+
 	}
 	/*
-
+	 * 
 	 * ====== Checkout Method =====
-
+	 * 
 	 */
- 
+
 	public static void createCheckoutHeader() {
- 
+
 		try {
- 
+
 			XSSFWorkbook workbook = openWorkbook();
- 
+
 			Sheet sheet = workbook.getSheet("Checkout");
- 
+
 			if (sheet == null) {
- 
+
 				sheet = workbook.createSheet("Checkout");
- 
+
 			}
- 
+
 			if (sheet.getRow(0) == null) {
- 
+
 				Row header = sheet.createRow(0);
- 
+
 				header.createCell(0).setCellValue("Test Case ID");
 
 				header.createCell(1).setCellValue("First Name");
@@ -392,81 +376,81 @@ public class ExcelWriter {
 				header.createCell(6).setCellValue("Execution Time");
 
 				header.createCell(7).setCellValue("Browser");
- 
+
 			}
- 
+
 			saveWorkbook(workbook);
- 
+
 		}
- 
+
 		catch (Exception e) {
- 
+
 			throw new RuntimeException("Unable to create Checkout Header.", e);
- 
+
 		}
- 
+
 	}
- 
+
 	public static void clearCheckoutSheet() {
- 
+
 		try {
- 
+
 			XSSFWorkbook workbook = openWorkbook();
- 
+
 			Sheet sheet = workbook.getSheet("Checkout");
- 
+
 			if (sheet == null) {
- 
+
 				sheet = workbook.createSheet("Checkout");
- 
+
 			}
- 
+
 			int lastRow = sheet.getLastRowNum();
- 
+
 			for (int i = lastRow; i >= 1; i--) {
- 
+
 				Row row = sheet.getRow(i);
- 
+
 				if (row != null) {
- 
+
 					sheet.removeRow(row);
- 
+
 				}
- 
+
 			}
- 
+
 			saveWorkbook(workbook);
- 
+
 		}
- 
+
 		catch (Exception e) {
- 
+
 			throw new RuntimeException("Unable to clear Checkout Sheet.", e);
- 
+
 		}
- 
+
 	}
- 
+
 	public static void writeCheckoutResult(String testCaseId, String firstName, String lastName, String postalCode,
 
 			String result, String errorMessage) {
- 
+
 		try {
- 
+
 			XSSFWorkbook workbook = openWorkbook();
- 
+
 			Sheet sheet = workbook.getSheet("Checkout");
- 
+
 			if (sheet == null) {
- 
+
 				sheet = workbook.createSheet("Checkout");
- 
+
 			}
- 
+
 			int rowNumber = sheet.getLastRowNum() + 1;
- 
+
 			Row row = sheet.createRow(rowNumber);
- 
+
 			row.createCell(0).setCellValue(testCaseId);
 
 			row.createCell(1).setCellValue(firstName);
@@ -478,23 +462,137 @@ public class ExcelWriter {
 			row.createCell(4).setCellValue(result);
 
 			row.createCell(5).setCellValue(errorMessage);
- 
+
 			row.createCell(6)
 
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
- 
+
 			row.createCell(7).setCellValue(ConfigReader.getProperty("browser"));
- 
+
 			saveWorkbook(workbook);
- 
+
 		}
- 
+
 		catch (Exception e) {
- 
+
 			throw new RuntimeException("Unable to write Checkout Result.", e);
- 
+
 		}
- 
+
 	}
- 
+
+	/*
+	 * 
+	 * ====== Logout Method =====
+	 * 
+	 */
+	public static void createLogoutHeader() {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Logout");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Logout");
+
+			}
+
+			if (sheet.getRow(0) == null) {
+
+				Row header = sheet.createRow(0);
+
+				header.createCell(0).setCellValue("Test Case ID");
+				header.createCell(1).setCellValue("Result");
+				header.createCell(2).setCellValue("Execution Time");
+				header.createCell(3).setCellValue("Browser");
+
+			}
+
+			saveWorkbook(workbook);
+
+		} catch (Exception e) {
+
+			throw new RuntimeException("Unable to create Logout Header.", e);
+
+		}
+
+	}
+
+	public static void clearLogoutSheet() {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Logout");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Logout");
+
+			}
+
+			int lastRow = sheet.getLastRowNum();
+
+			for (int i = lastRow; i >= 1; i--) {
+
+				Row row = sheet.getRow(i);
+
+				if (row != null) {
+
+					sheet.removeRow(row);
+
+				}
+
+			}
+
+			saveWorkbook(workbook);
+
+		} catch (Exception e) {
+
+			throw new RuntimeException("Unable to clear Logout Sheet.", e);
+
+		}
+
+	}
+
+	public static void writeLogoutResult(String testCaseId, String result) {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Logout");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("Logout");
+
+			}
+
+			int rowNumber = sheet.getLastRowNum() + 1;
+
+			Row row = sheet.createRow(rowNumber);
+
+			row.createCell(0).setCellValue(testCaseId);
+			row.createCell(1).setCellValue(result);
+
+			row.createCell(2)
+					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+
+			row.createCell(3).setCellValue(ConfigReader.getProperty("browser"));
+
+			saveWorkbook(workbook);
+
+		} catch (Exception e) {
+
+			throw new RuntimeException("Unable to write Logout Result.", e);
+
+		}
+
+	}
+
 }
