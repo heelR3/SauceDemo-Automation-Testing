@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src/test/resources/features/logout.feature",
+		features = "src/test/resources/features/navigation.feature",
 
 		glue = { "stepdefinitions", "hooks" },
 
