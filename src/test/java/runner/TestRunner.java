@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src/test/resources/features/logout.feature",
+		features = "src/test/resources/features/navigation.feature",
 
 		glue = { "stepdefinitions", "hooks" },
 
@@ -19,7 +19,9 @@ import io.cucumber.testng.CucumberOptions;
 
 				"json:target/cucumber-reports/cucumber.json",
 
-				"junit:target/cucumber-reports/cucumber.xml"
+				"junit:target/cucumber-reports/cucumber.xml",
+				
+				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 
 		},
 

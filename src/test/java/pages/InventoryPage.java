@@ -134,5 +134,23 @@ public class InventoryPage {
         return getProducts();
  
     }
+    
+    
+    
+ // ===========================
+    // ResetApps
+    // ===========================
+    public void resetAppState() throws InterruptedException {
+ 
+        driver.findElement(By.id("react-burger-menu-btn")).click();
+ 
+        Thread.sleep(2000);
+ 
+        driver.findElement(By.id("reset_sidebar_link")).click();
+ 
+        Thread.sleep(2000);
+ 
+        driver.findElement(By.id("react-burger-cross-btn")).click();
+    }
  
 }
