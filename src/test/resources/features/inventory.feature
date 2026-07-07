@@ -22,3 +22,10 @@ Then Sorted products should be written under "Low-High"
 
 When User sorts products by "Price (high to low)"
 Then Sorted products should be written under "High-Low"
+
+Scenario: Reset App State
+ 
+Given User is on the SauceDemo login page
+When User executes login test case "SD_TC_001"
+And User adds a single product to the cart
+And User resets app state
