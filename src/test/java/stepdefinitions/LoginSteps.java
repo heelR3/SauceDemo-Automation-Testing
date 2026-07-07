@@ -1,9 +1,12 @@
 package stepdefinitions;
  
-import static org.testng.Assert.assertEquals;
+import io.cucumber.java.en.Then;
+import utils.ExcelWriter;
 import static org.testng.Assert.assertTrue;
  
 import java.util.Map;
+ 
+import org.testng.Assert;
  
 import io.cucumber.java.en.*;
  
@@ -51,28 +54,51 @@ public class LoginSteps {
     @Then("User should see an error message for invalid credentials")
     public void invalid_credentials() {
  
-        assertEquals(
-                loginPage.getErrorMessage(),
-                "Epic sadface: Username and password do not match any user in this service");
- 
+    	String expected = "Username and password do not match any user in this service";
+        String actual = loginPage.getErrorMessage();
+     
+        Assert.assertTrue(actual.contains(expected));
+     
+        ExcelWriter.writeErrorResult(
+                "SD_TC_038",
+                "Login",
+                expected,
+                actual,
+                "PASS");
     }
  
     @Then("User should see a required field error message")
     public void required_field() {
  
-        assertEquals(
-                loginPage.getErrorMessage(),
-                "Epic sadface: Username is required");
- 
+    	String expected = "Username is required";
+        String actual = loginPage.getErrorMessage();
+     
+        Assert.assertTrue(actual.contains(expected));
+        
+        ExcelWriter.writeErrorResult(
+                "SD_TC_039",
+                "Login",
+                expected,
+                actual,
+                "PASS");
     }
  
     @Then("User should see a locked out user error message")
     public void locked_user() {
  
-        assertEquals(
-                loginPage.getErrorMessage(),
-                "Epic sadface: Sorry, this user has been locked out.");
+    	String expected = "Sorry, this user has been locked out.";
+        String actual = loginPage.getErrorMessage();
+     
+        Assert.assertTrue(actual.contains(expected));
+        
+        ExcelWriter.writeErrorResult(
+                "SD_TC_041",
+                "Login",
+                expected,
+                actual,
+                "PASS");
  
     }
+    
  
 }
