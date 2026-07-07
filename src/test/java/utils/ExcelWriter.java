@@ -594,5 +594,128 @@ public class ExcelWriter {
 		}
 
 	}
+	
+	/*
+	 *
+	 * ====== ERROR MESSAGE =====
+	 *
+	 */
+	public static void createErrorHeader() {
+		
+	    try {
+	
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("ErrorMessages");
+	
+	        if (sheet == null) {
+	
+	            sheet = workbook.createSheet("ErrorMessages");
+	
+	        }
+	
+	        if (sheet.getRow(0) == null) {
+	
+	            Row header = sheet.createRow(0);
+	
+	            header.createCell(0).setCellValue("Test Case ID");
+	            header.createCell(1).setCellValue("Module");
+	            header.createCell(2).setCellValue("Expected Error");
+	            header.createCell(3).setCellValue("Actual Error");
+	            header.createCell(4).setCellValue("Result");
+	            header.createCell(5).setCellValue("Execution Time");
+	            header.createCell(6).setCellValue("Browser");
+	
+	        }
+	
+	        saveWorkbook(workbook);
+	
+	    }
+	
+	    catch (Exception e) {
+	
+	        throw new RuntimeException(
+	                "Unable to create ErrorMessages Header.",
+	                e);
+	
+	    }
+	
+	}
+	
+	public static void clearErrorSheet() {
+	    try {
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("ErrorMessages");
+	
+	        if (sheet == null) {
+	            sheet = workbook.createSheet("ErrorMessages");
+	        } else {
+	            int lastRow = sheet.getLastRowNum();
+	
+	            for (int i = lastRow; i >= 0; i--) {
+	                Row row = sheet.getRow(i);
+	                if (row != null) {
+	                    sheet.removeRow(row);
+	                }
+	            }
+	        }
+	
+	        saveWorkbook(workbook);
+	
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}
+	
+	public static void writeErrorResult(
+	        String testCaseId,
+	        String module,
+	        String expectedError,
+	        String actualError,
+	        String result) {
+	
+	    try {
+	
+	        XSSFWorkbook workbook = openWorkbook();
+	
+	        Sheet sheet = workbook.getSheet("ErrorMessages");
+	
+	        if (sheet == null) {
+	
+	            sheet = workbook.createSheet("ErrorMessages");
+	
+	        }
+	
+	        int rowNumber = sheet.getLastRowNum() + 1;
+	
+	        Row row = sheet.createRow(rowNumber);
+	
+	        row.createCell(0).setCellValue(testCaseId);
+	        row.createCell(1).setCellValue(module);
+	        row.createCell(2).setCellValue(expectedError);
+	        row.createCell(3).setCellValue(actualError);
+	        row.createCell(4).setCellValue(result);
+	
+	        row.createCell(5).setCellValue(
+	                LocalDateTime.now().format(
+	                        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+	
+	        row.createCell(6).setCellValue(
+	                ConfigReader.getProperty("browser"));
+	
+	        saveWorkbook(workbook);
+	
+	    }
+	
+	    catch (Exception e) {
+	
+	        throw new RuntimeException(
+	                "Unable to write ErrorMessages Result.",
+	                e);
+	
+	    }
+	
+	}
 
 }

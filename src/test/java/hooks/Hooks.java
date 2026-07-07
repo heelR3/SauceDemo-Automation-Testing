@@ -46,6 +46,18 @@ public class Hooks {
 	    ExcelWriter.clearLogoutSheet();
 	 
 	}
+	
+	private static boolean errorSheetInitialized = false;	
+	@Before("@ErrorMessages")
+	public void beforeErrorMessagesScenario() {
+	
+	    if (!errorSheetInitialized) {
+	        ExcelWriter.clearErrorSheet();
+	        ExcelWriter.createErrorHeader();
+	
+	        errorSheetInitialized = true;
+	    }
+	}
 	 
  
 	@After
