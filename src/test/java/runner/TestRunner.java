@@ -21,6 +21,8 @@ import io.cucumber.testng.CucumberOptions;
 
 				"junit:target/cucumber-reports/cucumber.xml",
 				
+				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+				
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 
 		},
