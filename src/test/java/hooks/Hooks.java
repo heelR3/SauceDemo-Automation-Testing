@@ -50,6 +50,7 @@ public class Hooks {
 	}
 	
 	private static boolean errorSheetInitialized = false;	
+	
 	@Before("@ErrorMessages")
 	public void beforeErrorMessagesScenario() {
 	

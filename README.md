@@ -24,9 +24,13 @@ The framework supports automated execution of Login, Inventory, Cart, Checkout, 
 ---------------------------
 
 ## Project Structure
+<<<<<<< HEAD
 
 
 
+=======
+```text
+>>>>>>> cf630470f48066667c9f6321e6915adc7899a35f
 WebsiteTesting
 │
 ├── src/test/java
@@ -74,7 +78,7 @@ WebsiteTesting
 ├── test-output
 ├── pom.xml
 └── testNG.xml
-
+```
 
 ----------------------------
 
