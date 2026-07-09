@@ -2,10 +2,8 @@ package hooks;
  
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import pages.LoginPage;
 import utils.DriverFactory;
 import utils.ExcelWriter;
-import utils.SessionManager;
  
 public class Hooks {
 	

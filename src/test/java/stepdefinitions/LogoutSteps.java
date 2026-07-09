@@ -8,7 +8,6 @@ import pages.LogoutPage;
 import utils.DriverFactory;
 import utils.ExcelWriter;
 import utils.ScreenshotUtil;
-import utils.SessionManager;
  
 public class LogoutSteps {
  
@@ -35,8 +34,6 @@ public class LogoutSteps {
     public void user_clicks_logout() {
 
         logoutPage.clickLogout();
-
-        SessionManager.setLoggedIn(false);
     }
  
     @Then("User should be redirected to Login page")
