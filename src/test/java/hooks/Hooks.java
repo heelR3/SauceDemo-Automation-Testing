@@ -58,6 +58,17 @@ public class Hooks {
 	        errorSheetInitialized = true;
 	    }
 	}
+	private static boolean uiValidationSheetInitialized = false;
+	 
+	@Before("@UIValidation")
+	public void beforeUIValidationScenario() {
+	 
+	    if (!uiValidationSheetInitialized) {
+	        ExcelWriter.clearUIValidationSheet();
+	        ExcelWriter.createUIValidationHeader();
+	        uiValidationSheetInitialized = true;
+	    }
+	}
 	 
  
 	@After

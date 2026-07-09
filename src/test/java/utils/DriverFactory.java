@@ -1,4 +1,6 @@
 package utils;
+import org.openqa.selenium.chrome.ChromeOptions;
+import java.util.Map;
 
 import java.time.Duration;
 
@@ -20,8 +22,18 @@ public class DriverFactory {
 		case "chrome":
 
 			WebDriverManager.chromedriver().setup();
-
-			driver = new ChromeDriver();
+			 
+			ChromeOptions options = new ChromeOptions();
+			 
+			options.addArguments("--disable-save-password-bubble");
+			options.addArguments("--disable-notifications");
+			 
+			options.setExperimentalOption("prefs", Map.of(
+			        "credentials_enable_service", false,
+			        "profile.password_manager_enabled", false
+			));
+			 
+			driver = new ChromeDriver(options);
 
 			break;
 
