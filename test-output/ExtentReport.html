@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary"></span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Jul 9, 2026 07:32:25 am</span></a>
+<a href="#"><span class="badge badge-primary">Jul 9, 2026 01:09:57 pm</span></a>
 </li>
 </ul>
 </div>
@@ -45,11 +45,6 @@
 <li class="nav-item dropdown" onclick="toggleView('test-view')">
 <a id="nav-test" class="dropdown-toggle" href="#">
 <span class="ico"><i class="fa fa-list"></i></span>
-</a>
-</li>
-<li class="nav-item dropdown" onclick="toggleView('category-view')">
-<a id="nav-category" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-tag"></i></span>
 </a>
 </li>
 <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
@@ -71,39 +66,33 @@
 <li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
 <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
 <div class="dropdown-divider"></div>
 <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
-</ul>
-</li>
-<li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
-<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">@UIValidation</a>
 </ul>
 </li>
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
-        <li class="test-item"  status="pass" test-id="1"
+        <li class="test-item"  status="fail" test-id="1"
           author=""
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">SauceDemo UI Validation</p>
+            <p class="name">Performance and Accessibility</p>
             <p class="text-sm">
-              <span>7:32:26 am</span> / <span>00:00:17:993</span>
-              <span class="badge pass-bg log float-right">Pass</span>
+              <span>1:09:59 pm</span> / <span>00:00:18:068</span>
+              <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
           <div class="test-contents d-none">
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">SauceDemo UI Validation</h5>
-<span class='badge badge-success'>07.09.2026 7:32:26 am</span>
-<span class='badge badge-danger'>07.09.2026 7:32:44 am</span>
-<span class='badge badge-default'>00:00:17:993</span>
+<h5 class="test-status text-fail">Performance and Accessibility</h5>
+<span class='badge badge-success'>07.09.2026 1:09:59 pm</span>
+<span class='badge badge-danger'>07.09.2026 1:10:17 pm</span>
+<span class='badge badge-default'>00:00:18:068</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -116,19 +105,19 @@
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Verify SauceDemo logo</div>
+        <div class="node" id="2"><span class="badge log fail-bg mr-2">Fail</span>Verify Performance</div>
       </div>
     </div>
-        <div class="collapse">
+        <div class="">
           <div class="card-body">
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_logged_into_saucedemo()">
-                <span>Given User is logged into SauceDemo</span>
-      <div>
+              <div class="step fail-bg" >
+                <span>Given User is on login page</span>
+      <div>Step undefined
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_should_see_saucedemo_logo()">
-                <span>Then User should see SauceDemo logo</span>
-      <div>
+              <div class="step skip-bg" title="stepdefinitions.PerformanceSteps.user_checks_page_performance()">
+                <span>Then User checks page performance</span>
+      <div>Step skipped
       </div>
               </div>
           </div>
@@ -137,87 +126,19 @@
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="8"><span class="badge log pass-bg mr-2">Pass</span>Verify Login button alignment</div>
+        <div class="node" id="7"><span class="badge log fail-bg mr-2">Fail</span>Verify Accessibility</div>
       </div>
     </div>
-        <div class="collapse">
+        <div class="">
           <div class="card-body">
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_logged_into_saucedemo()">
-                <span>Given User is logged into SauceDemo</span>
-      <div>
+              <div class="step fail-bg" >
+                <span>Given User is on login page</span>
+      <div>Step undefined
       </div>
               </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_on_login_page()">
-                <span>Given User is on Login page</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.login_button_should_be_properly_aligned()">
-                <span>Then Login button should be properly aligned</span>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="15"><span class="badge log pass-bg mr-2">Pass</span>Verify Product page layout</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_logged_into_saucedemo()">
-                <span>Given User is logged into SauceDemo</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.inventory_page_layout_should_be_correct()">
-                <span>Then Inventory page layout should be correct</span>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="21"><span class="badge log pass-bg mr-2">Pass</span>Verify Cart icon visibility</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_logged_into_saucedemo()">
-                <span>Given User is logged into SauceDemo</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.cart_icon_should_be_visible()">
-                <span>Then Cart icon should be visible</span>
-      <div>
-      </div>
-              </div>
-          </div>
-        </div>
-  </div>
-  <div class="card">
-    <div class="card-header" role="tab">
-      <div class="card-title">
-        <div class="node" id="27"><span class="badge log pass-bg mr-2">Pass</span>Verify Footer links</div>
-      </div>
-    </div>
-        <div class="collapse">
-          <div class="card-body">
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.user_is_logged_into_saucedemo()">
-                <span>Given User is logged into SauceDemo</span>
-      <div>
-      </div>
-              </div>
-              <div class="step pass-bg" title="stepdefinitions.UIValidationSteps.social_links_should_be_displayed()">
-                <span>Then Twitter, Facebook and LinkedIn links should be displayed</span>
-      <div>
+              <div class="step skip-bg" title="stepdefinitions.AccessibilitySteps.user_checks_accessibility()">
+                <span>Then User checks accessibility</span>
+      <div>Step skipped
       </div>
               </div>
           </div>
@@ -235,122 +156,30 @@
 </div>
 <div class="test-content-detail"><div class="detail-body"></div></div>
 </div></div>
-<div class="test-wrapper row view category-view attributes-view">
-<div class="test-list">
-<div class="test-list-tools">
-<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
-</div>
-<div class="test-list-wrapper scrollable">
-<ul class="test-list-item">
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log pass-bg'>5</span>
-</span>
-<p class="name">@UIValidation</p>
-<p class="duration text-sm">5 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>@UIValidation</h4>
-<span status="pass" class='badge log pass-bg'>5 passed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>07:32:26 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='2'>Verify SauceDemo logo</a>
-<div class="">
-<span class="badge badge-default">SauceDemo UI Validation.Verify SauceDemo logo</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>07:32:33 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='8'>Verify Login button alignment</a>
-<div class="">
-<span class="badge badge-default">SauceDemo UI Validation.Verify Login button alignment</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>07:32:36 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='15'>Verify Product page layout</a>
-<div class="">
-<span class="badge badge-default">SauceDemo UI Validation.Verify Product page layout</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>07:32:39 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='21'>Verify Cart icon visibility</a>
-<div class="">
-<span class="badge badge-default">SauceDemo UI Validation.Verify Cart icon visibility</span>
-</div>
-</td>
-</tr>
-<tr class="tag-test-status" status="pass">
-<td><span class="badge log pass-bg">Pass</span></td>
-<td>07:32:41 am</td>
-<td>
-<a href="#" class="linked" test-id='1' id='27'>Verify Footer links</a>
-<div class="">
-<span class="badge badge-default">SauceDemo UI Validation.Verify Footer links</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="test-content scrollable">
-<div class="test-content-detail">
-<div class="detail-body"></div>
-</div>
-</div>
-</div><div class="container-fluid p-4 view dashboard-view">
+<div class="container-fluid p-4 view dashboard-view">
 <div class="row">
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Jul 9, 2026 07:32:25 am</h3>
+<h3>Jul 9, 2026 01:09:57 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Jul 9, 2026 07:32:44 am</h3>
+<h3>Jul 9, 2026 01:10:17 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Features Passed</p>
-<h3>1</h3>
+<h3>0</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-fail">Features Failed</p>
-<h3>0</h3>
+<h3>1</h3>
 </div></div>
 </div>
 </div>
@@ -366,12 +195,12 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'>
-<b>1</b> features passed
+<div><small data-tooltip='0%'>
+<b>0</b> features passed
 </small>
 </div>
 <div>
-<small data-tooltip='0%'><b>0</b> features failed,
+<small data-tooltip='100%'><b>1</b> features failed,
 <b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 </small>
 </div>
@@ -389,9 +218,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>5</b> scenarios passed</small></div>
+<div><small data-tooltip='0%'><b>0</b> scenarios passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> scenarios failed,
+<small data-tooltip='100%'><b>2</b> scenarios failed,
 <b>0</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
@@ -409,10 +238,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='100%'><b>11</b> steps passed</small></div>
+<div><small data-tooltip='0%'><b>0</b> steps passed</small></div>
 <div>
-<small data-tooltip='0%'><b>0</b> steps failed,
-<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+<small data-tooltip='50%'><b>2</b> steps failed,
+<b>2</b> skipped, <b data-tooltip='%'>0</b> others
 </small>
 </div>
 </div>
@@ -428,47 +257,30 @@
 </div></div>
 <script>
 var timeline = {
-"SauceDemo UI Validation":17.993
+"Performance and Accessibility":18.068
 };
 </script>
 <div class="row">
-<div class="col-lg-6 col-md-12 category-container">
-<div class="card">
-<div class="card-header"><p>Tags</p></div>
-<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
-<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
-<tr>
-<td>@UIValidation</td>
-<td>5</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>100%</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
 </div>
 </div>
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 1,
-failParent: 0,
+passParent: 0,
+failParent: 1,
 warningParent: 0,
 skipParent: 0,
 childCount: 5,
-passChild: 5,
-failChild: 0,
+passChild: 0,
+failChild: 2,
 warningChild: 0,
 skipChild: 0,
 infoChild: 0,
 grandChildCount: 5,
-passGrandChild: 11,
-failGrandChild: 0,
+passGrandChild: 0,
+failGrandChild: 2,
 warningGrandChild: 0,
-skipGrandChild: 0,
+skipGrandChild: 2,
 infoGrandChild: 0,
 eventsCount: 5,
 };

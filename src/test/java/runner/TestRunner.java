@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src/test/resources/features/uiValidation.feature",
+		features = "src/test/resources/features/PerformanceAccessibility.feature",
 
 		glue = { "stepdefinitions", "hooks" },
 
