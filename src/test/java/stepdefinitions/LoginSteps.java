@@ -2,6 +2,8 @@ package stepdefinitions;
  
 import io.cucumber.java.en.Then;
 import utils.ExcelWriter;
+import utils.SessionManager;
+
 import static org.testng.Assert.assertTrue;
  
 import java.util.Map;
@@ -45,10 +47,11 @@ public class LoginSteps {
  
     @Then("User should be redirected to the Inventory page")
     public void inventory_page() {
- 
+
         assertTrue(
                 loginPage.getCurrentUrl().contains("inventory"));
- 
+
+        SessionManager.setLoggedIn(true);
     }
  
     @Then("User should see an error message for invalid credentials")

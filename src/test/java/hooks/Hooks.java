@@ -2,20 +2,22 @@ package hooks;
  
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import pages.LoginPage;
 import utils.DriverFactory;
 import utils.ExcelWriter;
+import utils.SessionManager;
  
 public class Hooks {
 	
 	private static boolean checkoutSheetInitialized = false;
  
-	@Before()
+	
+	@Before
 	public void beforeScenario() {
- 
-		DriverFactory.initDriver();
- 
+
+	    DriverFactory.initDriver();
+
 	}
- 
 	@Before("@Cart")
 	public void beforeCartScenario() {
  
