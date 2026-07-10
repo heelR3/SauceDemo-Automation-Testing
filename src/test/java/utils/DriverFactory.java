@@ -1,5 +1,11 @@
 package utils;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import java.time.Duration;
@@ -24,18 +30,43 @@ public class DriverFactory {
 			WebDriverManager.chromedriver().setup();
 			 
 			ChromeOptions options = new ChromeOptions();
-			 
-			options.addArguments("--disable-save-password-bubble");
+
+			Map<String, Object> prefs = new HashMap<>();
+
+			prefs.put("credentials_enable_service", false);
+			prefs.put("profile.password_manager_enabled", false);
+			prefs.put("profile.password_manager_leak_detection", false);
+
+			options.setExperimentalOption("prefs", prefs);
+
 			options.addArguments("--disable-notifications");
-			 
-			options.setExperimentalOption("prefs", Map.of(
-			        "credentials_enable_service", false,
-			        "profile.password_manager_enabled", false
-			));
-			 
+			options.addArguments("--disable-features=PasswordLeakDetection");
+
 			driver = new ChromeDriver(options);
 
 			break;
+			
+		case "firefox":
+
+		    WebDriverManager.firefoxdriver().setup();
+
+		    FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+		    driver = new FirefoxDriver(firefoxOptions);
+
+		    break;
+
+		case "edge":
+
+		    WebDriverManager.edgedriver().setup();
+
+		    EdgeOptions edgeOptions = new EdgeOptions();
+
+		    driver = new EdgeDriver(edgeOptions);
+
+		    break;
+
+			
 
 		default:
 

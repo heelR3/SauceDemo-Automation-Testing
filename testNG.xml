@@ -2,13 +2,58 @@
 
 <suite name="SauceDemo Suite">
 
-    <test name="SauceDemo Tests">
-
+    <test name="01_Login">
         <classes>
-            <class name="runner.TestRunner"/>
+            <class name="runner.LoginRunner"/>
         </classes>
+    </test>
 
+    <test name="02_Inventory">
+        <classes>
+            <class name="runner.InventoryRunner"/>
+        </classes>
+    </test>
+
+    <test name="03_Cart">
+        <classes>
+            <class name="runner.CartRunner"/>
+        </classes>
+    </test>
+
+    <test name="04_Checkout">
+        <classes>
+            <class name="runner.CheckoutRunner"/>
+        </classes>
+    </test>
+
+    <test name="05_Logout">
+        <classes>
+            <class name="runner.LogoutRunner"/>
+        </classes>
+    </test>
+
+    <test name="06_Navigation">
+        <classes>
+            <class name="runner.NavigationRunner"/>
+        </classes>
+    </test>
+
+    <test name="07_UIValidation">
+        <classes>
+            <class name="runner.UIValidationRunner"/>
+        </classes>
+    </test>
+
+    <test name="08_PerformanceAccessibility">
+        <classes>
+            <class name="runner.PerformanceRunner"/>
+        </classes>
+    </test>
+
+    <test name="09_SessionManagement">
+        <classes>
+            <class name="runner.SessionManagementRunner"/>
+        </classes>
     </test>
 
 </suite>
-

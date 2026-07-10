@@ -7,7 +7,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 
-		features = "src/test/resources/features/sessionmanagement.feature",
+		features = "src/test/resources/features",
 
 		glue = { "stepdefinitions", "hooks" },
 

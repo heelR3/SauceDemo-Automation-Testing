@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>3/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>26/5/0</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Jul 09 15:13:26 IST 2026</td>
+<td>Started on:</td><td>Fri Jul 10 10:46:55 IST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>41 seconds (41308 ms)</td>
+<tr><td>Total time:</td><td>248 seconds (248316 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,179 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td><b>Attribute(s)</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Checkout without First Name", "Checkout Functionality"</td>
+<td><div><pre>java.lang.AssertionError: expected [Checkout: Your Information] but found [Your Cart]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at org.testng.Assert.assertEquals(Assert.java:666)
+	at stepdefinitions.CheckoutSteps.checkoutInformationPageShouldBeDisplayed(CheckoutSteps.java:46)
+	at ✽.Checkout Information page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:47)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1778700964", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1778700964'><pre>java.lang.AssertionError: expected [Checkout: Your Information] but found [Your Cart]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at org.testng.Assert.assertEquals(Assert.java:666)
+	at stepdefinitions.CheckoutSteps.checkoutInformationPageShouldBeDisplayed(CheckoutSteps.java:46)
+	at ✽.Checkout Information page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:47)
+</pre></div></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Checkout with valid details", "Checkout Functionality"</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.className: complete-header, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.complete\-header&quot;}.
+(tried for 10 seconds with 500 milliseconds interval)
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49175}, goog:processID: 23988, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49175/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 5d019d8ed57dcb12f17f8d2626718bdc
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at utils.WaitUtil.waitForVisibility(WaitUtil.java:31)
+	at pages.CheckoutPage.getCompleteHeader(CheckoutPage.java:113)
+	at stepdefinitions.CheckoutSteps.checkoutCompletePageShouldBeDisplayed(CheckoutSteps.java:118)
+	at ✽.Checkout Complete page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:35)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1289092166", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1289092166'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.className: complete-header, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.complete\-header&quot;}.
+(tried for 10 seconds with 500 milliseconds interval)
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49175}, goog:processID: 23988, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49175/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 5d019d8ed57dcb12f17f8d2626718bdc
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at utils.WaitUtil.waitForVisibility(WaitUtil.java:31)
+	at pages.CheckoutPage.getCompleteHeader(CheckoutPage.java:113)
+	at stepdefinitions.CheckoutSteps.checkoutCompletePageShouldBeDisplayed(CheckoutSteps.java:118)
+	at ✽.Checkout Complete page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:35)
+</pre></div></td>
+<td>21</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Back Home navigation", "Navigation Functionality"</td>
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.className: complete-header, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.complete\-header&quot;}.
+(tried for 10 seconds with 500 milliseconds interval)
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63809}, goog:processID: 36716, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63809/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 899770e7b0f80aaaee26ca93c0300ac5
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at utils.WaitUtil.waitForVisibility(WaitUtil.java:31)
+	at pages.CheckoutPage.getCompleteHeader(CheckoutPage.java:113)
+	at stepdefinitions.CheckoutSteps.checkoutCompletePageShouldBeDisplayed(CheckoutSteps.java:118)
+	at ✽.Checkout Complete page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/navigation.feature:92)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1748052869", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1748052869'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element found by By.className: complete-header, but... org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;.complete\-header&quot;}.
+(tried for 10 seconds with 500 milliseconds interval)
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63809}, goog:processID: 36716, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63809/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 899770e7b0f80aaaee26ca93c0300ac5
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:85)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:234)
+	at utils.WaitUtil.waitForVisibility(WaitUtil.java:31)
+	at pages.CheckoutPage.getCompleteHeader(CheckoutPage.java:113)
+	at stepdefinitions.CheckoutSteps.checkoutCompletePageShouldBeDisplayed(CheckoutSteps.java:118)
+	at ✽.Checkout Complete page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/navigation.feature:92)
+</pre></div></td>
+<td>17</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Checkout without Last Name", "Checkout Functionality"</td>
+<td><div><pre>java.lang.AssertionError: expected [Checkout: Your Information] but found [Your Cart]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at org.testng.Assert.assertEquals(Assert.java:666)
+	at stepdefinitions.CheckoutSteps.checkoutInformationPageShouldBeDisplayed(CheckoutSteps.java:46)
+	at ✽.Checkout Information page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:66)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1232675280", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1232675280'><pre>java.lang.AssertionError: expected [Checkout: Your Information] but found [Your Cart]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1578)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
+	at org.testng.Assert.assertEquals(Assert.java:132)
+	at org.testng.Assert.assertEquals(Assert.java:656)
+	at org.testng.Assert.assertEquals(Assert.java:666)
+	at stepdefinitions.CheckoutSteps.checkoutInformationPageShouldBeDisplayed(CheckoutSteps.java:46)
+	at ✽.Checkout Information page should be displayed(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/checkout.feature:66)
+</pre></div></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Add to Cart from Product Details", "Navigation Functionality"</td>
+<td><div><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;#add\-to\-cart&quot;}
+  (Session info: chrome=150.0.7871.47)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [3b5aefb6205a56393cb33d19184e3847, findElement {using=id, value=add-to-cart}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63699}, goog:processID: 29400, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63699/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 3b5aefb6205a56393cb33d19184e3847
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:606)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:429)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:423)
+	at pages.NavigationPage.clickAddToCart(NavigationPage.java:48)
+	at stepdefinitions.NavigationSteps.user_clicks_add_to_cart_from_product_details_page(NavigationSteps.java:36)
+	at ✽.User clicks Add to Cart from product details page(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/navigation.feature:15)
+</pre></div><a href='#' onClick='toggleBox("stack-trace330652043", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace330652043'><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;css selector&quot;,&quot;selector&quot;:&quot;#add\-to\-cart&quot;}
+  (Session info: chrome=150.0.7871.47)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.43.0&apos;, revision: &apos;dd0f534&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;21.0.9&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [3b5aefb6205a56393cb33d19184e3847, findElement {using=id, value=add-to-cart}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.47, chrome: {chromedriverVersion: 150.0.7871.115 (25f5b661e5b..., userDataDir: C:\Users\RU2069~1\AppData\L...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63699}, goog:processID: 29400, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63699/devtoo..., se:cdpVersion: 150.0.7871.47, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 3b5aefb6205a56393cb33d19184e3847
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:606)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:429)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:423)
+	at pages.NavigationPage.clickAddToCart(NavigationPage.java:48)
+	at stepdefinitions.NavigationSteps.user_clicks_add_to_cart_from_product_details_page(NavigationSteps.java:36)
+	at ✽.User clicks Add to Cart from product details page(file:///C:/Users/RU20695960/eclipse-workspace/WebsiteTesting/src/test/resources/features/navigation.feature:15)
+</pre></div></td>
+<td>18</td>
+<td>runner.TestRunner@21d03963</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -76,19 +249,134 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify direct access after logout", "Session Management"</td>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Cart to Inventory navigation", "Navigation Functionality"</td>
 <td></td>
-<td>10</td>
+<td>8</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Login", "SauceDemo Login Functionality"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Inventory to Cart navigation", "Navigation Functionality"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Performance", "Performance and Accessibility"</td>
+<td></td>
+<td>8</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Logout navigation", "Navigation Functionality"</td>
+<td></td>
+<td>7</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Accessibility", "Performance and Accessibility"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Checkout navigation", "Navigation Functionality"</td>
+<td></td>
+<td>7</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Complete Cart Functionality", "Cart Functionality"</td>
+<td></td>
+<td>11</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Username", "SauceDemo Login Functionality"</td>
+<td></td>
+<td>5</td>
 <td>runner.TestRunner@21d03963</td></tr>
 <tr>
 <td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify session after browser refresh", "Session Management"</td>
 <td></td>
-<td>16</td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Login button alignment", "SauceDemo UI Validation"</td>
+<td></td>
+<td>4</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify SauceDemo logo", "SauceDemo UI Validation"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Cart icon visibility", "SauceDemo UI Validation"</td>
+<td></td>
+<td>4</td>
 <td>runner.TestRunner@21d03963</td></tr>
 <tr>
 <td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify session after navigating pages", "Session Management"</td>
 <td></td>
-<td>9</td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Footer links", "SauceDemo UI Validation"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Password", "SauceDemo Login Functionality"</td>
+<td></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Logout Functionality", "Logout Functionality"</td>
+<td></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Empty Fields", "SauceDemo Login Functionality"</td>
+<td></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Complete Inventory Flow", "SauceDemo Inventory Feature"</td>
+<td></td>
+<td>11</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Checkout without Postal Code", "Checkout Functionality"</td>
+<td></td>
+<td>7</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Login with locked out user", "SauceDemo Login Functionality"</td>
+<td></td>
+<td>6</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Product page layout", "SauceDemo UI Validation"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Back to Products button", "Navigation Functionality"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Reset App State", "SauceDemo Inventory Feature"</td>
+<td></td>
+<td>10</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify Remove button on Product Details page", "Navigation Functionality"</td>
+<td></td>
+<td>5</td>
+<td>runner.TestRunner@21d03963</td></tr>
+<tr>
+<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Verify direct access after logout", "Session Management"</td>
+<td></td>
+<td>5</td>
 <td>runner.TestRunner@21d03963</td></tr>
 </table><p>
 </body>

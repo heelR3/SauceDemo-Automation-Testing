@@ -4,7 +4,6 @@ import static org.testng.Assert.assertTrue;
  
 import org.openqa.selenium.Point;
  
-import hooks.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pages.LoginPage;
