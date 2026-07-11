@@ -17,12 +17,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory {
 
-	private static WebDriver driver;
+	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	
+	public static void initDriver(String browser) {
 
-	public static void initDriver() {
-
-		String browser = ConfigReader.getProperty("browser");
-
+		//String browser = System.getProperty("browser",ConfigReader.getProperty("browser"));
+		
 		switch (browser.toLowerCase()) {
 
 		case "chrome":
@@ -42,7 +42,7 @@ public class DriverFactory {
 			options.addArguments("--disable-notifications");
 			options.addArguments("--disable-features=PasswordLeakDetection");
 
-			driver = new ChromeDriver(options);
+			driver.set(new ChromeDriver(options));
 
 			break;
 			
@@ -52,20 +52,21 @@ public class DriverFactory {
 
 		    FirefoxOptions firefoxOptions = new FirefoxOptions();
 
-		    driver = new FirefoxDriver(firefoxOptions);
+		    driver.set(new FirefoxDriver(firefoxOptions));
 
 		    break;
 
 		case "edge":
 
-		    WebDriverManager.edgedriver().setup();
+		    System.setProperty(
+		        "webdriver.edge.driver",
+		        "C:\\Users\\RU20695960\\.cache\\selenium\\msedgedriver\\msedgedriver.exe");
 
 		    EdgeOptions edgeOptions = new EdgeOptions();
 
-		    driver = new EdgeDriver(edgeOptions);
+		    driver.set(new EdgeDriver(edgeOptions));
 
 		    break;
-
 			
 
 		default:
@@ -74,36 +75,22 @@ public class DriverFactory {
 
 		}
 
-		driver.manage().window().maximize();
+		driver.get().manage().window().maximize();
 
-		driver.manage().timeouts().implicitlyWait(
+		driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(Long.parseLong(ConfigReader.getProperty("implicitWait"))));
 
-				Duration.ofSeconds(
-
-						Long.parseLong(
-
-								ConfigReader.getProperty("implicitWait"))));
-
-		driver.get(
-
-				ConfigReader.getProperty("url"));
-
+		driver.get().get(ConfigReader.getProperty("url"));
 	}
 
 	public static WebDriver getDriver() {
-
-		return driver;
-
+	    return driver.get();
 	}
 
 	public static void quitBrowser() {
 
-		if (driver != null) {
-
-			driver.quit();
-
-			driver = null;
-
+		if (driver.get() != null) {
+			driver.get().quit();
+			driver.remove();
 		}
 
 	}

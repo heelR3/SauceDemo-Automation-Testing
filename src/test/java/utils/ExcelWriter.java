@@ -11,6 +11,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+
 import model.Product;
 
 public class ExcelWriter {
@@ -22,16 +31,66 @@ public class ExcelWriter {
 	private ExcelWriter() {
 	}
 
-	private static XSSFWorkbook openWorkbook() throws IOException {
+	private static CellStyle createHeaderStyle(XSSFWorkbook workbook) {
+
+		CellStyle style = workbook.createCellStyle();
+
+		XSSFFont font = workbook.createFont();
+
+		font.setBold(true);
+		font.setFontHeightInPoints((short) 12);
+
+		style.setFont(font);
+
+		style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		style.setAlignment(HorizontalAlignment.CENTER);
+
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+		style.setWrapText(true);
+
+		style.setBorderTop(BorderStyle.THIN);
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setBorderRight(BorderStyle.THIN);
+
+		return style;
+	}
+
+	private static CellStyle createDataStyle(XSSFWorkbook workbook) {
+
+		CellStyle style = workbook.createCellStyle();
+
+		style.setWrapText(false);
+
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+		style.setBorderTop(BorderStyle.THIN);
+		style.setBorderBottom(BorderStyle.THIN);
+		style.setBorderLeft(BorderStyle.THIN);
+		style.setBorderRight(BorderStyle.THIN);
+
+		return style;
+	}
+
+	private static void autoSizeColumns(Sheet sheet, int columnCount) {
+		for (int i = 0; i < columnCount; i++) {
+			sheet.autoSizeColumn(i);
+		}
+	}
+
+	private static synchronized XSSFWorkbook openWorkbook() throws IOException {
 
 		try (FileInputStream fis = new FileInputStream(FILE_PATH)) {
 
 			return new XSSFWorkbook(fis);
-
 		}
 	}
 
-	private static void saveWorkbook(XSSFWorkbook workbook) throws IOException {
+	private static synchronized void saveWorkbook(XSSFWorkbook workbook) throws IOException {
 
 		FileOutputStream fos = new FileOutputStream(FILE_PATH);
 
@@ -43,7 +102,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void clearInventorySheet() {
+	public static synchronized void clearInventorySheet() {
 
 		try {
 
@@ -71,7 +130,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void writeInventoryProducts(List<Product> products) {
+	public static synchronized void writeInventoryProducts(List<Product> products) {
 
 		try {
 
@@ -87,28 +146,41 @@ public class ExcelWriter {
 
 			String executionTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
-			String browser = ConfigReader.getProperty("browser");
+			String browser = BrowserContext.getBrowser();
 
 			int rowNumber = 1;
-
+			CellStyle dataStyle = createDataStyle(workbook);
 			for (Product product : products) {
 
 				Row row = sheet.createRow(rowNumber++);
 
-				row.createCell(0).setCellValue(product.getName());
+				row.setHeightInPoints(30);
 
-				row.createCell(1).setCellValue(product.getPrice());
+				Cell cell0 = row.createCell(0);
+				cell0.setCellValue(product.getName());
+				cell0.setCellStyle(dataStyle);
 
-				row.createCell(2).setCellValue(product.getDescription());
+				Cell cell1 = row.createCell(1);
+				cell1.setCellValue(product.getPrice());
+				cell1.setCellStyle(dataStyle);
 
-				row.createCell(3).setCellValue(product.getImageUrl());
+				Cell cell2 = row.createCell(2);
+				cell2.setCellValue(product.getDescription());
+				cell2.setCellStyle(dataStyle);
 
-				row.createCell(8).setCellValue(executionTime);
+				Cell cell3 = row.createCell(3);
+				cell3.setCellValue(product.getImageUrl());
+				cell3.setCellStyle(dataStyle);
 
-				row.createCell(9).setCellValue(browser);
+				Cell cell8 = row.createCell(8);
+				cell8.setCellValue(executionTime);
+				cell8.setCellStyle(dataStyle);
+
+				Cell cell9 = row.createCell(9);
+				cell9.setCellValue(browser);
+				cell9.setCellStyle(dataStyle);
 
 			}
-
 			saveWorkbook(workbook);
 
 		}
@@ -126,7 +198,7 @@ public class ExcelWriter {
 	 *
 	 * Column Mapping: 4 = A-Z 5 = Z-A 6 = Low-High 7 = High-Low
 	 */
-	public static void writeSortingResult(List<Product> products, int columnIndex) {
+	public static synchronized void writeSortingResult(List<Product> products, int columnIndex) {
 
 		try {
 
@@ -173,7 +245,7 @@ public class ExcelWriter {
 	/**
 	 * Creates the Inventory sheet header if it is empty.
 	 */
-	public static void createInventoryHeader() {
+	public static synchronized void createInventoryHeader() {
 
 		try {
 
@@ -191,17 +263,41 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Name");
-				header.createCell(1).setCellValue("Price");
-				header.createCell(2).setCellValue("Description");
-				header.createCell(3).setCellValue("Image URL");
-				header.createCell(4).setCellValue("A-Z");
-				header.createCell(5).setCellValue("Z-A");
-				header.createCell(6).setCellValue("Low-High");
-				header.createCell(7).setCellValue("High-Low");
-				header.createCell(8).setCellValue("Execution Time");
-				header.createCell(9).setCellValue("Browser");
+				header.setHeightInPoints(25);
 
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Name", "Price", "Description", "Image URL", "A-Z", "Z-A", "Low-High", "High-Low",
+						"Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 30 * 256); // Name
+
+				sheet.setColumnWidth(1, 12 * 256); // Price
+
+				sheet.setColumnWidth(2, 80 * 256); // Description
+
+				sheet.setColumnWidth(3, 40 * 256); // Image URL
+
+				sheet.setColumnWidth(4, 35 * 256);
+				sheet.setColumnWidth(5, 35 * 256);
+				sheet.setColumnWidth(6, 35 * 256);
+				sheet.setColumnWidth(7, 35 * 256);
+
+				sheet.setColumnWidth(8, 25 * 256); // Execution Time
+
+				sheet.setColumnWidth(9, 12 * 256); // Browser
 			}
 
 			saveWorkbook(workbook);
@@ -213,10 +309,11 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to create Inventory header.", e);
 
 		}
-
 	}
 
-	public static void createCartHeader() {
+// CART
+
+	public static synchronized void createCartHeader() {
 
 		try {
 
@@ -255,7 +352,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void clearCartSheet() {
+	public static synchronized void clearCartSheet() {
 
 		try {
 
@@ -295,7 +392,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void writeCartAction(Product product, String action) {
+	public static synchronized void writeCartAction(Product product, String action) {
 
 		try {
 
@@ -324,7 +421,7 @@ public class ExcelWriter {
 			row.createCell(4)
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
-			row.createCell(5).setCellValue(ConfigReader.getProperty("browser"));
+			row.createCell(5).setCellValue(BrowserContext.getBrowser());
 
 			saveWorkbook(workbook);
 
@@ -343,7 +440,7 @@ public class ExcelWriter {
 	 * 
 	 */
 
-	public static void createCheckoutHeader() {
+	public static synchronized void createCheckoutHeader() {
 
 		try {
 
@@ -391,7 +488,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void clearCheckoutSheet() {
+	public static synchronized void clearCheckoutSheet() {
 
 		try {
 
@@ -431,7 +528,8 @@ public class ExcelWriter {
 
 	}
 
-	public static void writeCheckoutResult(String testCaseId, String firstName, String lastName, String postalCode,
+	public static synchronized void writeCheckoutResult(String testCaseId, String firstName, String lastName,
+			String postalCode,
 
 			String result, String errorMessage) {
 
@@ -467,7 +565,7 @@ public class ExcelWriter {
 
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
-			row.createCell(7).setCellValue(ConfigReader.getProperty("browser"));
+			row.createCell(7).setCellValue(BrowserContext.getBrowser());
 
 			saveWorkbook(workbook);
 
@@ -486,7 +584,7 @@ public class ExcelWriter {
 	 * ====== Logout Method =====
 	 * 
 	 */
-	public static void createLogoutHeader() {
+	public static synchronized void createLogoutHeader() {
 
 		try {
 
@@ -521,7 +619,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void clearLogoutSheet() {
+	public static synchronized void clearLogoutSheet() {
 
 		try {
 
@@ -559,7 +657,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void writeLogoutResult(String testCaseId, String result) {
+	public static synchronized void writeLogoutResult(String testCaseId, String result) {
 
 		try {
 
@@ -583,7 +681,7 @@ public class ExcelWriter {
 			row.createCell(2)
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
-			row.createCell(3).setCellValue(ConfigReader.getProperty("browser"));
+			row.createCell(3).setCellValue(BrowserContext.getBrowser());
 
 			saveWorkbook(workbook);
 
@@ -600,7 +698,7 @@ public class ExcelWriter {
 	 * ====== ERROR MESSAGE =====
 	 *
 	 */
-	public static void createErrorHeader() {
+	public static synchronized void createErrorHeader() {
 
 		try {
 
@@ -640,7 +738,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void clearErrorSheet() {
+	public static synchronized void clearErrorSheet() {
 		try {
 			XSSFWorkbook workbook = openWorkbook();
 
@@ -666,8 +764,8 @@ public class ExcelWriter {
 		}
 	}
 
-	public static void writeErrorResult(String testCaseId, String module, String expectedError, String actualError,
-			String result) {
+	public static synchronized void writeErrorResult(String testCaseId, String module, String expectedError,
+			String actualError, String result) {
 
 		try {
 
@@ -694,7 +792,7 @@ public class ExcelWriter {
 			row.createCell(5)
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
-			row.createCell(6).setCellValue(ConfigReader.getProperty("browser"));
+			row.createCell(6).setCellValue(BrowserContext.getBrowser());
 
 			saveWorkbook(workbook);
 
@@ -708,7 +806,7 @@ public class ExcelWriter {
 
 	}
 
-	public static void createUIValidationHeader() {
+	public static synchronized void createUIValidationHeader() {
 
 		try {
 
@@ -745,7 +843,7 @@ public class ExcelWriter {
 	 * ====== UI Validation =====
 	 *
 	 */
-	public static void clearUIValidationSheet() {
+	public static synchronized void clearUIValidationSheet() {
 
 		try {
 
@@ -777,7 +875,7 @@ public class ExcelWriter {
 		}
 	}
 
-	public static void writeUIValidationResult(String testCaseId, String validation, String result) {
+	public static synchronized void writeUIValidationResult(String testCaseId, String validation, String result) {
 
 		try {
 
@@ -800,7 +898,7 @@ public class ExcelWriter {
 			row.createCell(3)
 					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
-			row.createCell(4).setCellValue(ConfigReader.getProperty("browser"));
+			row.createCell(4).setCellValue(BrowserContext.getBrowser());
 
 			saveWorkbook(workbook);
 
@@ -810,87 +908,111 @@ public class ExcelWriter {
 
 		}
 	}
-	
-	
+
 	// Session Management
-	
-	public static void createSessionHeader() {
 
-	    try {
+	public static synchronized void clearSessionSheet() {
 
-	        XSSFWorkbook workbook = openWorkbook();
+		try {
 
-	        Sheet sheet = workbook.getSheet("SessionManagement");
+			XSSFWorkbook workbook = openWorkbook();
 
-	        if (sheet == null) {
+			Sheet sheet = workbook.getSheet("SessionManagement");
 
-	            sheet = workbook.createSheet("SessionManagement");
+			if (sheet == null) {
 
-	        }
+				sheet = workbook.createSheet("SessionManagement");
 
-	        if (sheet.getRow(0) == null) {
+			}
 
-	            Row header = sheet.createRow(0);
+			int lastRow = sheet.getLastRowNum();
 
-	            header.createCell(0).setCellValue("Test Case ID");
-	            header.createCell(1).setCellValue("Scenario");
-	            header.createCell(2).setCellValue("Result");
-	            header.createCell(3).setCellValue("Execution Time");
-	            header.createCell(4).setCellValue("Browser");
+			for (int i = lastRow; i >= 1; i--) {
 
-	        }
+				Row row = sheet.getRow(i);
 
-	        saveWorkbook(workbook);
+				if (row != null) {
 
-	    } catch (Exception e) {
+					sheet.removeRow(row);
 
-	        throw new RuntimeException(
-	                "Unable to create SessionManagement Header.",
-	                e);
-	    }
+				}
+			}
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to clear SessionManagement Sheet.", e);
+
+		}
 	}
-	
-	public static void writeSessionResult(
-	        String testCaseId,
-	        String scenario,
-	        String result) {
 
-	    try {
+	public static synchronized void createSessionHeader() {
 
-	        XSSFWorkbook workbook = openWorkbook();
+		try {
 
-	        Sheet sheet = workbook.getSheet("SessionManagement");
+			XSSFWorkbook workbook = openWorkbook();
 
-	        if (sheet == null) {
+			Sheet sheet = workbook.getSheet("SessionManagement");
 
-	            sheet = workbook.createSheet("SessionManagement");
+			if (sheet == null) {
 
-	        }
+				sheet = workbook.createSheet("SessionManagement");
 
-	        int rowNum = sheet.getLastRowNum() + 1;
+			}
 
-	        Row row = sheet.createRow(rowNum);
+			if (sheet.getRow(0) == null) {
 
-	        row.createCell(0).setCellValue(testCaseId);
-	        row.createCell(1).setCellValue(scenario);
-	        row.createCell(2).setCellValue(result);
+				Row header = sheet.createRow(0);
 
-	        row.createCell(3).setCellValue(
-	                LocalDateTime.now().format(
-	                        DateTimeFormatter.ofPattern(
-	                                "dd-MM-yyyy HH:mm:ss")));
+				header.createCell(0).setCellValue("Test Case ID");
+				header.createCell(1).setCellValue("Scenario");
+				header.createCell(2).setCellValue("Result");
+				header.createCell(3).setCellValue("Execution Time");
+				header.createCell(4).setCellValue("Browser");
 
-	        row.createCell(4).setCellValue(
-	                ConfigReader.getProperty("browser"));
+			}
 
-	        saveWorkbook(workbook);
+			saveWorkbook(workbook);
 
-	    } catch (Exception e) {
+		} catch (Exception e) {
 
-	        throw new RuntimeException(
-	                "Unable to write SessionManagement Result.",
-	                e);
-	    }
+			throw new RuntimeException("Unable to create SessionManagement Header.", e);
+		}
+	}
+
+	public static synchronized void writeSessionResult(String testCaseId, String scenario, String result) {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("SessionManagement");
+
+			if (sheet == null) {
+				sheet = workbook.createSheet("SessionManagement");
+			}
+
+			int rowNum = sheet.getLastRowNum() + 1;
+			Row row = sheet.createRow(rowNum);
+
+			row.createCell(0).setCellValue(testCaseId);
+			row.createCell(1).setCellValue(scenario);
+			row.createCell(2).setCellValue(result);
+
+			row.createCell(3)
+					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+
+			row.createCell(4).setCellValue(BrowserContext.getBrowser());
+
+			saveWorkbook(workbook);
+
+		} catch (Exception e) {
+
+			throw new RuntimeException("Unable to write SessionManagement Result.", e);
+		}
 	}
 
 }

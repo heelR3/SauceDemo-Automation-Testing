@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="CrossBrowserFramework"
+       parallel="tests"
+       thread-count="2">
+
+    <test name="Chrome">
+
+        <parameter name="browser" value="chrome"/>
+
+        <classes>
+<!--            <class name="runner.LoginRunner"/>-->
+            <class name="runner.InventoryRunner"/>
+<!--            <class name="runner.CartRunner"/>-->
+<!--            <class name="runner.CheckoutRunner"/>-->
+<!--            <class name="runner.LogoutRunner"/>-->
+<!--            <class name="runner.NavigationRunner"/>-->
+<!--            <class name="runner.UIValidationRunner"/>-->
+<!--            <class name="runner.PerformanceRunner"/>-->
+<!--            <class name="runner.SessionManagementRunner"/>-->
+        </classes>
+
+    </test>
+
+    <test name="Edge">
+
+        <parameter name="browser" value="edge"/>
+
+        <classes>
+<!--            <class name="runner.LoginRunner"/>-->
+            <class name="runner.InventoryRunner"/>
+<!--            <class name="runner.CartRunner"/>-->
+<!--            <class name="runner.CheckoutRunner"/>-->
+<!--            <class name="runner.LogoutRunner"/>-->
+<!--            <class name="runner.NavigationRunner"/>-->
+<!--            <class name="runner.UIValidationRunner"/>-->
+<!--            <class name="runner.PerformanceRunner"/>-->
+<!--            <class name="runner.SessionManagementRunner"/>-->
+        </classes>
+
+    </test>
+
+</suite>

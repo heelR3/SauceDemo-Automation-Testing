@@ -1,8 +1,12 @@
 package runner;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import utils.BrowserContext;
 
 @CucumberOptions(
         features = "src/test/resources/features/sessionmanagement.feature",
@@ -17,6 +21,13 @@ import io.cucumber.testng.CucumberOptions;
 )
 public class SessionManagementRunner extends AbstractTestNGCucumberTests {
 
+	@Parameters("browser")
+	@BeforeClass
+	public void setupBrowser(String browser) {
+
+	    BrowserContext.setBrowser(browser);
+	}
+	
     @Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {

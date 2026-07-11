@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  
 public class ExcelReader {
  
-    public static Map<String, String> getTestData(String sheetName, String testCaseId) {
+    public static synchronized Map<String, String> getTestData(String sheetName, String testCaseId) {
  
         Map<String, String> data = new HashMap<>();
  

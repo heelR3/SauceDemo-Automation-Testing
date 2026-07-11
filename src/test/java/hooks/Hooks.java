@@ -2,20 +2,19 @@ package hooks;
  
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import utils.BrowserContext;
 import utils.DriverFactory;
 import utils.ExcelWriter;
  
 public class Hooks {
 	
-	private static boolean checkoutSheetInitialized = false;
+	private static volatile boolean checkoutSheetInitialized = false;
  
-	
 	@Before
-	public void beforeScenario() {
-
-	    DriverFactory.initDriver();
-
+	public void beforeScenario(io.cucumber.java.Scenario scenario) {
+		DriverFactory.initDriver(BrowserContext.getBrowser());
 	}
+	
 	@Before("@Cart")
 	public void beforeCartScenario() {
  
@@ -47,7 +46,7 @@ public class Hooks {
 	 
 	}
 	
-	private static boolean errorSheetInitialized = false;	
+	private static volatile boolean errorSheetInitialized = false;	
 	
 	@Before("@ErrorMessages")
 	public void beforeErrorMessagesScenario() {
@@ -60,7 +59,7 @@ public class Hooks {
 	    }
 	}
 	 
-	private static boolean uiValidationSheetInitialized = false;	
+	private static volatile boolean uiValidationSheetInitialized = false;	
 	
 	@Before("@UIValidation")
 	public void beforeuiValidationScenario() {
@@ -70,6 +69,19 @@ public class Hooks {
 			ExcelWriter.createUIValidationHeader();
 			
 			uiValidationSheetInitialized = true;
+		}
+	}
+	
+	private static volatile boolean sessionManagementSheetInitialized = false;	
+	
+	@Before("@UIValidation")
+	public void beforeSessionManagementScenario() {
+		
+		if (!sessionManagementSheetInitialized) {
+			ExcelWriter.clearSessionSheet();
+			ExcelWriter.createSessionHeader();
+			
+			sessionManagementSheetInitialized = true;
 		}
 	}
 	
