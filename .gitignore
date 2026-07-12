@@ -1,1 +1,15 @@
-/target/
+# Maven
+target/
+
+# Allure
+allure-results/
+allure-report/
+
+# Screenshots
+screenshots/
+
+# TestNG
+test-output/
+
+# Logs
+*.log
