@@ -1,3 +1,4 @@
+@SessionManagement
 Feature: Session Management
 
   Background:

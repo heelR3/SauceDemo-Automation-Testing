@@ -79,28 +79,18 @@ public class InventorySteps {
  
     @When("User extracts all inventory products")
     public void user_extracts_all_inventory_products() {
- 
-        ExcelWriter.clearInventorySheet();
- 
-        ExcelWriter.createInventoryHeader();
- 
         products = inventoryPage.getProducts();
- 
     }
  
     @Then("Product details should be written into Inventory Excel sheet")
     public void product_details_should_be_written_into_inventory_excel_sheet() {
- 
         ExcelWriter.writeInventoryProducts(products);
         ScreenshotUtil.captureScreenshot("Inventory", "Inventory_Page");
- 
     }
  
     @When("User sorts products by {string}")
     public void user_sorts_products_by(String sortOption) {
- 
         products = inventoryPage.getSortedProducts(sortOption);
- 
     }
  
     @Then("Sorted products should be written under {string}")

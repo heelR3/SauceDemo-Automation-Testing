@@ -9,15 +9,15 @@
         <parameter name="browser" value="chrome"/>
 
         <classes>
-<!--            <class name="runner.LoginRunner"/>-->
+            <class name="runner.LoginRunner"/>
             <class name="runner.InventoryRunner"/>
-<!--            <class name="runner.CartRunner"/>-->
-<!--            <class name="runner.CheckoutRunner"/>-->
-<!--            <class name="runner.LogoutRunner"/>-->
-<!--            <class name="runner.NavigationRunner"/>-->
-<!--            <class name="runner.UIValidationRunner"/>-->
-<!--            <class name="runner.PerformanceRunner"/>-->
-<!--            <class name="runner.SessionManagementRunner"/>-->
+            <class name="runner.CartRunner"/>
+            <class name="runner.CheckoutRunner"/>
+            <class name="runner.LogoutRunner"/>
+            <class name="runner.NavigationRunner"/>
+            <class name="runner.UIValidationRunner"/>
+            <class name="runner.PerformanceRunner"/>
+            <class name="runner.SessionManagementRunner"/>
         </classes>
 
     </test>
@@ -27,15 +27,15 @@
         <parameter name="browser" value="edge"/>
 
         <classes>
-<!--            <class name="runner.LoginRunner"/>-->
+            <class name="runner.LoginRunner"/>
             <class name="runner.InventoryRunner"/>
-<!--            <class name="runner.CartRunner"/>-->
-<!--            <class name="runner.CheckoutRunner"/>-->
-<!--            <class name="runner.LogoutRunner"/>-->
-<!--            <class name="runner.NavigationRunner"/>-->
-<!--            <class name="runner.UIValidationRunner"/>-->
-<!--            <class name="runner.PerformanceRunner"/>-->
-<!--            <class name="runner.SessionManagementRunner"/>-->
+            <class name="runner.CartRunner"/>
+            <class name="runner.CheckoutRunner"/>
+            <class name="runner.LogoutRunner"/>
+            <class name="runner.NavigationRunner"/>
+            <class name="runner.UIValidationRunner"/>
+            <class name="runner.PerformanceRunner"/>
+            <class name="runner.SessionManagementRunner"/>
         </classes>
 
     </test>

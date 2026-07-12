@@ -76,12 +76,6 @@ public class ExcelWriter {
 		return style;
 	}
 
-	private static void autoSizeColumns(Sheet sheet, int columnCount) {
-		for (int i = 0; i < columnCount; i++) {
-			sheet.autoSizeColumn(i);
-		}
-	}
-
 	private static synchronized XSSFWorkbook openWorkbook() throws IOException {
 
 		try (FileInputStream fis = new FileInputStream(FILE_PATH)) {
@@ -148,7 +142,7 @@ public class ExcelWriter {
 
 			String browser = BrowserContext.getBrowser();
 
-			int rowNumber = 1;
+			int rowNumber = sheet.getLastRowNum() + 1;
 			CellStyle dataStyle = createDataStyle(workbook);
 			for (Product product : products) {
 
@@ -331,13 +325,29 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Product Name");
-				header.createCell(1).setCellValue("Price");
-				header.createCell(2).setCellValue("Action");
-				header.createCell(3).setCellValue("Quantity");
-				header.createCell(4).setCellValue("Execution Time");
-				header.createCell(5).setCellValue("Browser");
+				header.setHeightInPoints(25);
 
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Product Name", "Price", "Action", "Quantity", "Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 35 * 256);
+				sheet.setColumnWidth(1, 12 * 256);
+				sheet.setColumnWidth(2, 15 * 256);
+				sheet.setColumnWidth(3, 12 * 256);
+				sheet.setColumnWidth(4, 25 * 256);
+				sheet.setColumnWidth(5, 12 * 256);
 			}
 
 			saveWorkbook(workbook);
@@ -349,7 +359,6 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to create Cart Header.", e);
 
 		}
-
 	}
 
 	public static synchronized void clearCartSheet() {
@@ -410,18 +419,33 @@ public class ExcelWriter {
 
 			Row row = sheet.createRow(rowNumber);
 
-			row.createCell(0).setCellValue(product.getName());
+			row.setHeightInPoints(25);
 
-			row.createCell(1).setCellValue(product.getPrice());
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(2).setCellValue(action);
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(product.getName());
+			cell0.setCellStyle(dataStyle);
 
-			row.createCell(3).setCellValue(1);
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(product.getPrice());
+			cell1.setCellStyle(dataStyle);
 
-			row.createCell(4)
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(action);
+			cell2.setCellStyle(dataStyle);
 
-			row.createCell(5).setCellValue(BrowserContext.getBrowser());
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(1);
+			cell3.setCellStyle(dataStyle);
+
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell4.setCellStyle(dataStyle);
+
+			Cell cell5 = row.createCell(5);
+			cell5.setCellValue(BrowserContext.getBrowser());
+			cell5.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
@@ -432,8 +456,8 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to write Cart Action.", e);
 
 		}
-
 	}
+
 	/*
 	 * 
 	 * ====== Checkout Method =====
@@ -458,22 +482,32 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Test Case ID");
+				header.setHeightInPoints(25);
 
-				header.createCell(1).setCellValue("First Name");
+				CellStyle headerStyle = createHeaderStyle(workbook);
 
-				header.createCell(2).setCellValue("Last Name");
+				String[] headers = { "Test Case ID", "First Name", "Last Name", "Postal Code", "Result",
+						"Error Message", "Execution Time", "Browser" };
 
-				header.createCell(3).setCellValue("Postal Code");
+				for (int i = 0; i < headers.length; i++) {
 
-				header.createCell(4).setCellValue("Result");
+					Cell cell = header.createCell(i);
 
-				header.createCell(5).setCellValue("Error Message");
+					cell.setCellValue(headers[i]);
 
-				header.createCell(6).setCellValue("Execution Time");
+					cell.setCellStyle(headerStyle);
+				}
 
-				header.createCell(7).setCellValue("Browser");
+				sheet.createFreezePane(0, 1);
 
+				sheet.setColumnWidth(0, 18 * 256);
+				sheet.setColumnWidth(1, 20 * 256);
+				sheet.setColumnWidth(2, 20 * 256);
+				sheet.setColumnWidth(3, 15 * 256);
+				sheet.setColumnWidth(4, 12 * 256);
+				sheet.setColumnWidth(5, 40 * 256);
+				sheet.setColumnWidth(6, 25 * 256);
+				sheet.setColumnWidth(7, 12 * 256);
 			}
 
 			saveWorkbook(workbook);
@@ -485,7 +519,6 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to create Checkout Header.", e);
 
 		}
-
 	}
 
 	public static synchronized void clearCheckoutSheet() {
@@ -529,9 +562,7 @@ public class ExcelWriter {
 	}
 
 	public static synchronized void writeCheckoutResult(String testCaseId, String firstName, String lastName,
-			String postalCode,
-
-			String result, String errorMessage) {
+			String postalCode, String result, String errorMessage) {
 
 		try {
 
@@ -549,23 +580,41 @@ public class ExcelWriter {
 
 			Row row = sheet.createRow(rowNumber);
 
-			row.createCell(0).setCellValue(testCaseId);
+			row.setHeightInPoints(25);
 
-			row.createCell(1).setCellValue(firstName);
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(2).setCellValue(lastName);
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
 
-			row.createCell(3).setCellValue(postalCode);
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(firstName);
+			cell1.setCellStyle(dataStyle);
 
-			row.createCell(4).setCellValue(result);
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(lastName);
+			cell2.setCellStyle(dataStyle);
 
-			row.createCell(5).setCellValue(errorMessage);
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(postalCode);
+			cell3.setCellStyle(dataStyle);
 
-			row.createCell(6)
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(result);
+			cell4.setCellStyle(dataStyle);
 
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			Cell cell5 = row.createCell(5);
+			cell5.setCellValue(errorMessage);
+			cell5.setCellStyle(dataStyle);
 
-			row.createCell(7).setCellValue(BrowserContext.getBrowser());
+			Cell cell6 = row.createCell(6);
+			cell6.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell6.setCellStyle(dataStyle);
+
+			Cell cell7 = row.createCell(7);
+			cell7.setCellValue(BrowserContext.getBrowser());
+			cell7.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
@@ -576,7 +625,6 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to write Checkout Result.", e);
 
 		}
-
 	}
 
 	/*
@@ -602,21 +650,38 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Test Case ID");
-				header.createCell(1).setCellValue("Result");
-				header.createCell(2).setCellValue("Execution Time");
-				header.createCell(3).setCellValue("Browser");
+				header.setHeightInPoints(25);
 
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Test Case ID", "Result", "Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 20 * 256);
+				sheet.setColumnWidth(1, 15 * 256);
+				sheet.setColumnWidth(2, 25 * 256);
+				sheet.setColumnWidth(3, 12 * 256);
 			}
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to create Logout Header.", e);
 
 		}
-
 	}
 
 	public static synchronized void clearLogoutSheet() {
@@ -675,22 +740,35 @@ public class ExcelWriter {
 
 			Row row = sheet.createRow(rowNumber);
 
-			row.createCell(0).setCellValue(testCaseId);
-			row.createCell(1).setCellValue(result);
+			row.setHeightInPoints(25);
 
-			row.createCell(2)
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(3).setCellValue(BrowserContext.getBrowser());
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
+
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(result);
+			cell1.setCellStyle(dataStyle);
+
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell2.setCellStyle(dataStyle);
+
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(BrowserContext.getBrowser());
+			cell3.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to write Logout Result.", e);
 
 		}
-
 	}
 
 	/*
@@ -716,14 +794,31 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Test Case ID");
-				header.createCell(1).setCellValue("Module");
-				header.createCell(2).setCellValue("Expected Error");
-				header.createCell(3).setCellValue("Actual Error");
-				header.createCell(4).setCellValue("Result");
-				header.createCell(5).setCellValue("Execution Time");
-				header.createCell(6).setCellValue("Browser");
+				header.setHeightInPoints(25);
 
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Test Case ID", "Module", "Expected Error", "Actual Error", "Result",
+						"Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 20 * 256); // Test Case ID
+				sheet.setColumnWidth(1, 20 * 256); // Module
+				sheet.setColumnWidth(2, 50 * 256); // Expected Error
+				sheet.setColumnWidth(3, 50 * 256); // Actual Error
+				sheet.setColumnWidth(4, 15 * 256); // Result
+				sheet.setColumnWidth(5, 25 * 256); // Execution Time
+				sheet.setColumnWidth(6, 12 * 256); // Browser
 			}
 
 			saveWorkbook(workbook);
@@ -735,7 +830,6 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to create ErrorMessages Header.", e);
 
 		}
-
 	}
 
 	public static synchronized void clearErrorSheet() {
@@ -783,16 +877,37 @@ public class ExcelWriter {
 
 			Row row = sheet.createRow(rowNumber);
 
-			row.createCell(0).setCellValue(testCaseId);
-			row.createCell(1).setCellValue(module);
-			row.createCell(2).setCellValue(expectedError);
-			row.createCell(3).setCellValue(actualError);
-			row.createCell(4).setCellValue(result);
+			row.setHeightInPoints(35);
 
-			row.createCell(5)
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(6).setCellValue(BrowserContext.getBrowser());
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
+
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(module);
+			cell1.setCellStyle(dataStyle);
+
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(expectedError);
+			cell2.setCellStyle(dataStyle);
+
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(actualError);
+			cell3.setCellStyle(dataStyle);
+
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(result);
+			cell4.setCellStyle(dataStyle);
+
+			Cell cell5 = row.createCell(5);
+			cell5.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell5.setCellStyle(dataStyle);
+
+			Cell cell6 = row.createCell(6);
+			cell6.setCellValue(BrowserContext.getBrowser());
+			cell6.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
@@ -803,8 +918,13 @@ public class ExcelWriter {
 			throw new RuntimeException("Unable to write ErrorMessages Result.", e);
 
 		}
-
 	}
+
+	/*
+	 *
+	 * ====== UI Validation =====
+	 *
+	 */
 
 	public static synchronized void createUIValidationHeader() {
 
@@ -815,34 +935,50 @@ public class ExcelWriter {
 			Sheet sheet = workbook.getSheet("UIValidation");
 
 			if (sheet == null) {
+
 				sheet = workbook.createSheet("UIValidation");
+
 			}
 
 			if (sheet.getRow(0) == null) {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Test Case ID");
-				header.createCell(1).setCellValue("UI Validation");
-				header.createCell(2).setCellValue("Result");
-				header.createCell(3).setCellValue("Execution Time");
-				header.createCell(4).setCellValue("Browser");
+				header.setHeightInPoints(25);
+
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Test Case ID", "UI Validation", "Result", "Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 20 * 256);
+				sheet.setColumnWidth(1, 40 * 256);
+				sheet.setColumnWidth(2, 15 * 256);
+				sheet.setColumnWidth(3, 25 * 256);
+				sheet.setColumnWidth(4, 12 * 256);
 			}
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to create UIValidation Header.", e);
 
 		}
 	}
 
-	/*
-	 *
-	 * ====== UI Validation =====
-	 *
-	 */
 	public static synchronized void clearUIValidationSheet() {
 
 		try {
@@ -884,25 +1020,44 @@ public class ExcelWriter {
 			Sheet sheet = workbook.getSheet("UIValidation");
 
 			if (sheet == null) {
+
 				sheet = workbook.createSheet("UIValidation");
+
 			}
 
 			int rowNum = sheet.getLastRowNum() + 1;
 
 			Row row = sheet.createRow(rowNum);
 
-			row.createCell(0).setCellValue(testCaseId);
-			row.createCell(1).setCellValue(validation);
-			row.createCell(2).setCellValue(result);
+			row.setHeightInPoints(25);
 
-			row.createCell(3)
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(4).setCellValue(BrowserContext.getBrowser());
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
+
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(validation);
+			cell1.setCellStyle(dataStyle);
+
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(result);
+			cell2.setCellStyle(dataStyle);
+
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell3.setCellStyle(dataStyle);
+
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(BrowserContext.getBrowser());
+			cell4.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to write UIValidation Result.", e);
 
@@ -967,19 +1122,39 @@ public class ExcelWriter {
 
 				Row header = sheet.createRow(0);
 
-				header.createCell(0).setCellValue("Test Case ID");
-				header.createCell(1).setCellValue("Scenario");
-				header.createCell(2).setCellValue("Result");
-				header.createCell(3).setCellValue("Execution Time");
-				header.createCell(4).setCellValue("Browser");
+				header.setHeightInPoints(25);
 
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Test Case ID", "Scenario", "Result", "Execution Time", "Browser" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 20 * 256);
+				sheet.setColumnWidth(1, 40 * 256);
+				sheet.setColumnWidth(2, 15 * 256);
+				sheet.setColumnWidth(3, 25 * 256);
+				sheet.setColumnWidth(4, 12 * 256);
 			}
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to create SessionManagement Header.", e);
+
 		}
 	}
 
@@ -992,26 +1167,267 @@ public class ExcelWriter {
 			Sheet sheet = workbook.getSheet("SessionManagement");
 
 			if (sheet == null) {
+
 				sheet = workbook.createSheet("SessionManagement");
+
 			}
 
 			int rowNum = sheet.getLastRowNum() + 1;
+
 			Row row = sheet.createRow(rowNum);
 
-			row.createCell(0).setCellValue(testCaseId);
-			row.createCell(1).setCellValue(scenario);
-			row.createCell(2).setCellValue(result);
+			row.setHeightInPoints(25);
 
-			row.createCell(3)
-					.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			CellStyle dataStyle = createDataStyle(workbook);
 
-			row.createCell(4).setCellValue(BrowserContext.getBrowser());
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
+
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(scenario);
+			cell1.setCellStyle(dataStyle);
+
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(result);
+			cell2.setCellStyle(dataStyle);
+
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+			cell3.setCellStyle(dataStyle);
+
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(BrowserContext.getBrowser());
+			cell4.setCellStyle(dataStyle);
 
 			saveWorkbook(workbook);
 
-		} catch (Exception e) {
+		}
+
+		catch (Exception e) {
 
 			throw new RuntimeException("Unable to write SessionManagement Result.", e);
+
+		}
+	}
+
+	// Duration Comparison of Browser
+	public static synchronized void clearPerformanceSheet() {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("PerformanceComparison");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("PerformanceComparison");
+
+			}
+
+			int lastRow = sheet.getLastRowNum();
+
+			for (int i = lastRow; i >= 1; i--) {
+
+				Row row = sheet.getRow(i);
+
+				if (row != null) {
+
+					sheet.removeRow(row);
+
+				}
+			}
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to clear PerformanceComparison Sheet.", e);
+
+		}
+	}
+
+	public static synchronized void createPerformanceHeader() {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("PerformanceComparison");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("PerformanceComparison");
+
+			}
+
+			if (sheet.getRow(0) == null) {
+
+				Row header = sheet.createRow(0);
+
+				header.setHeightInPoints(25);
+
+				CellStyle headerStyle = createHeaderStyle(workbook);
+
+				String[] headers = { "Test Case ID", "Chrome (ms)", "Edge (ms)", "Faster Browser", "Difference (ms)",
+						"Winner %" };
+
+				for (int i = 0; i < headers.length; i++) {
+
+					Cell cell = header.createCell(i);
+
+					cell.setCellValue(headers[i]);
+
+					cell.setCellStyle(headerStyle);
+				}
+
+				sheet.createFreezePane(0, 1);
+
+				sheet.setColumnWidth(0, 25 * 256);
+				sheet.setColumnWidth(1, 18 * 256);
+				sheet.setColumnWidth(2, 18 * 256);
+				sheet.setColumnWidth(3, 20 * 256);
+				sheet.setColumnWidth(4, 18 * 256);
+				sheet.setColumnWidth(5, 15 * 256);
+			}
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to create Performance Header.", e);
+
+		}
+	}
+
+	public static synchronized void writePerformanceComparison(String testCaseId, long chromeTime, long edgeTime) {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("PerformanceComparison");
+
+			if (sheet == null) {
+
+				sheet = workbook.createSheet("PerformanceComparison");
+			}
+
+			int rowNumber = sheet.getLastRowNum() + 1;
+
+			Row row = sheet.createRow(rowNumber);
+
+			row.setHeightInPoints(25);
+
+			CellStyle dataStyle = createDataStyle(workbook);
+
+			String faster;
+
+			long difference;
+
+			double winnerPercentage;
+
+			if (chromeTime < edgeTime) {
+
+				faster = "Chrome";
+
+				difference = edgeTime - chromeTime;
+
+				winnerPercentage = ((double) difference / edgeTime) * 100;
+			}
+
+			else {
+
+				faster = "Edge";
+
+				difference = chromeTime - edgeTime;
+
+				winnerPercentage = ((double) difference / chromeTime) * 100;
+			}
+
+			Cell cell0 = row.createCell(0);
+			cell0.setCellValue(testCaseId);
+			cell0.setCellStyle(dataStyle);
+
+			Cell cell1 = row.createCell(1);
+			cell1.setCellValue(chromeTime);
+			cell1.setCellStyle(dataStyle);
+
+			Cell cell2 = row.createCell(2);
+			cell2.setCellValue(edgeTime);
+			cell2.setCellStyle(dataStyle);
+
+			Cell cell3 = row.createCell(3);
+			cell3.setCellValue(faster);
+			cell3.setCellStyle(dataStyle);
+
+			Cell cell4 = row.createCell(4);
+			cell4.setCellValue(difference);
+			cell4.setCellStyle(dataStyle);
+
+			Cell cell5 = row.createCell(5);
+			cell5.setCellValue(String.format("%.2f%%", winnerPercentage));
+			cell5.setCellStyle(dataStyle);
+
+			saveWorkbook(workbook);
+
+		}
+
+		catch (Exception e) {
+
+			throw new RuntimeException("Unable to write Performance Comparison.", e);
+
+		}
+	}
+
+	public static synchronized String getTestCaseIdByScenarioName(String scenarioName) {
+
+		try {
+
+			XSSFWorkbook workbook = openWorkbook();
+
+			Sheet sheet = workbook.getSheet("Test Cases");
+
+			if (sheet == null) {
+
+				return scenarioName;
+			}
+
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+
+				Row row = sheet.getRow(i);
+
+				if (row == null) {
+
+					continue;
+				}
+
+				String testCaseId = row.getCell(1).getStringCellValue().trim();
+
+				String testCaseName = row.getCell(2).getStringCellValue().trim();
+
+				if (scenarioName.equalsIgnoreCase(testCaseName)) {
+
+					workbook.close();
+
+					return testCaseId;
+				}
+			}
+
+			workbook.close();
+
+			return scenarioName;
+
+		}
+
+		catch (Exception e) {
+
+			return scenarioName;
 		}
 	}
 
